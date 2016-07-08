@@ -1,0 +1,53 @@
+/* 全局 */
+body, dd, dl, fieldset, form, h1, h2, h3, h4, h5, h6, legend, pre{
+    margin: 0;
+}
+ol, p, ul{
+    margin: 0;
+    padding: 0;
+}
+ul,ol{
+    list-style-type:none;
+}
+a{
+    text-decoration:none;
+}
+/*清除浮动*/
+.clearfix{
+    zoom: 1;
+}
+.clearfix:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.carousel-box{
+	position: relative;
+	width: 640px;
+	height: 270px;
+	overflow: hidden;
+	margin: 100px auto;
+}
+.carousel-img-list{
+	position: absolute;
+	height: 270px;
+	width: calc(640px * 6);
+}
+.carousel-img-list li{
+	float: left;
+	font-size: 0;
+}
+.carousel-btn{
+	display: block;
+	width: 80px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+.carousel-btn-l{
+	background: url(../img/btn_l.png) no-repeat center;
+}
+.carousel-btn-r{
+	right: 0;
+	background: url(../img/btn_r.png) no-repeat center;
+}
