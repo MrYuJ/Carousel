@@ -1,21 +1,20 @@
 ;(function ($) {
-	function Carousel(carouselBox) {
-
+	function Carousel() {
+		this.config = {
+			boxWidth : 1000,
+			boxHeight : 270,
+			carouselWidth : 640,
+			carouselHeight : 270,
+			speed : 500,
+			verticalAlign : "middle",
+			scale : 0.9,
+		};
 	} 
 	Carousel.prototype = {
-
-	};
-	/**
-	 * 初始化方法去实例化全部的对象
-	 * @param  {carouselBoxes 传进来的DOM集合}
-	 */
-	Carousel.init = function (carouselBoxes) {
-		//这个this指Carousel
-		var _this = this; 
-		carouselBoxes.each(function () {
-			//这个this指carouselBoxes循环出来的每一个carouselBox
-			new _this(this); 
-		});
+		init : function (config) {
+			var CIG = $.extend(this.config,config);
+			console.log(CIG);
+		}
 	};
 	window.Carousel = Carousel;
 })($)
