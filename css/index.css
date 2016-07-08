@@ -23,23 +23,20 @@ a{
 }
 .carousel-box{
 	position: relative;
-	width: 640px;
-	height: 270px;
-	overflow: hidden;
+	/*width: 1000px;*/
+	/*height: 270px;*/
 	margin: 100px auto;
 }
 .carousel-img-list{
-	position: absolute;
-	height: 270px;
-	width: calc(640px * 6);
+	/*width: 1000px;*/
+	/*height: 270px;*/
 }
 .carousel-img-list li{
-	float: left;
-	font-size: 0;
+	position: absolute;
 }
 .carousel-btn{
 	display: block;
-	width: 80px;
+	/*width: 100px;*/
 	position: absolute;
 	top: 0;
 	bottom: 0;

@@ -6,7 +6,7 @@ define(['jquery'],function ($) {
 	Widget.prototype = {
 		/***************接口BEGIN*****************/
 		// 用于添加DOM节点
-		renderUI : function () {},
+		renderUI : function () {}, 
 		// 用于缓存DOM
 		cacheDOM : function () {},
 		// 用于绑定事件
