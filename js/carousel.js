@@ -64,15 +64,17 @@ define(['widget'],function (_widget) {
 				"height" : btnHeight,
 				"z-index" : Math.ceil($imgSize/2)
 			});  
-			_this.remainImgPos();
+			_this.setRemainImgPos();
 		},
 		// 用于销毁组件前需要处理的函数
 		destructor : function () {},
 		/****************接口END******************/
 
 		/****************方法BEGIN******************/
-		// 设置除了第一张图片外剩余图片的位置关系，均分为左右两边
-		remainImgPos : function () {
+		/**
+		 * 设置除了第一张图片外剩余图片的位置关系，均分为左右两边
+		 */
+		setRemainImgPos : function () {
 			var _this = this;
 			var btnWidth = (_this.config.boxWidth - _this.config.imgWidth)/2;
 			var btnHeight = _this.config.boxHeight;
@@ -91,18 +93,18 @@ define(['widget'],function (_widget) {
 			var $remainImgListLi = $($carouselImgListLi.slice(1));
 			// 剩下所有元素的前半部分元素作为右边的图片
 			var $rightImgListLi = $($remainImgListLi.slice(0,($remainImgListLi.size())/2));
-			$rightImgListLi.each(function () {
+			$rightImgListLi.each(function (i,value) {
 				// 以第一张图片为基准设置下一张图片
 				firstImgWidth  = firstImgWidth * _this.config.scale;
 				firstImgHeight = firstImgHeight * _this.config.scale;
-				firstImgLeft   = firstImgLeft - gap;
+				left   		   = _this.config.imgWidth + btnWidth + (++i * gap) - firstImgWidth;
 				firstImgZIndex = firstImgZIndex -1;
 				firstImgOpacity= firstImgOpacity * _this.config.opacity;
 				$(this).css({
 					"width"  :  firstImgWidth ,
 					"height" :  firstImgHeight,
-					"right"  :  firstImgLeft,
-					"top"    :  (_this.config.imgHeight - firstImgHeight) / 2,
+					"left"   :  left,
+					"top"    :  _this.setVerticalAlign(firstImgHeight),
 					"opacity":  firstImgOpacity,
 					"z-index":  firstImgZIndex
 				});
@@ -119,7 +121,7 @@ define(['widget'],function (_widget) {
 					"width"  :  lastRightImgWidth ,
 					"height" :  lastRightImgHeight,
 					"left"   :  gap * i,
-					"top"    :  (_this.config.imgHeight - lastRightImgHeight) / 2,
+					"top"    :  _this.setVerticalAlign(lastRightImgHeight),
 					"opacity":  lastRightImgOpacity,
 					"z-index":  lastRightImgZIndex
 				});
@@ -131,6 +133,21 @@ define(['widget'],function (_widget) {
 				lastRightImgZIndex  = lastRightImgZIndex + 1 ;
 				lastRightImgOpacity = lastRightImgOpacity / _this.config.opacity;
 			});
+		},
+		/**
+		 * 设置垂直对齐方式
+		 * @param [height为当前高度]
+		 * @return [默认返回居中的效果]
+		 */
+		setVerticalAlign : function (height) {
+			var top = (this.config.imgHeight - height) / 2;
+			var verticalAlignType = "middle";
+			if (verticalAlignType === "top") {
+				top = 0;
+			}else if (verticalAlignType === "bottom") {
+				top = (this.config.imgHeight - height);
+			}
+			return top;
 		}
 		/****************方法END******************/
 
