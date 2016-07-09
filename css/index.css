@@ -34,6 +34,10 @@ a{
 .carousel-img-list li{
 	position: absolute;
 }
+.carousel-img-list img{
+	width: 100%;
+	height: 100%;
+}
 .carousel-btn{
 	display: block;
 	/*width: 100px;*/

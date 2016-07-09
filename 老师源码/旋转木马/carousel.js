@@ -47,15 +47,15 @@
 				};
 			});
 		//是否开启自动播放
-		if(this.setting.autoPlay){
-			this.autoPlay();
-			this.poster.hover(function(){
-										window.clearInterval(self.timer);
-										},function(){
-										self.autoPlay();
-										});
+		// if(this.setting.autoPlay){
+		// 	this.autoPlay();
+		// 	this.poster.hover(function(){
+		// 								window.clearInterval(self.timer);
+		// 								},function(){
+		// 								self.autoPlay();
+		// 								});
 			
-		};
+		// };
 
 	};
 	Carousel.prototype = {
@@ -143,7 +143,7 @@
 				
 				var firstLeft = (this.setting.width-this.setting.posterWidth)/2;
 				var fixOffsetLeft = firstLeft+rw;
-				//设置左边位置关系
+				//设置右边位置关系
 				rightSlice.each(function(i){
 					level--;
 					rw = rw *self.setting.scale;
