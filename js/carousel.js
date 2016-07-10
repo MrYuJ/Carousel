@@ -1,13 +1,13 @@
 define(['widget'],function (_widget) {
 	var $carouselBox,$carouselImgList,$carouselImgListLi,$imgSize,$firstImg,
-		$carouselBtnR,$carouselRtnL;
+		$lastImg,$carouselBtnR,$carouselRtnL;
 	function Carousel() {
 		this.config = {
 			boxWidth : 1000,
 			boxHeight : 270,
 			imgWidth : 640,
 			imgHeight : 270,
-			speed : 500,
+			speed : 500,  
 			verticalAlign : "middle",
 			scale : 0.9,
 			opacity : 0.7
@@ -30,7 +30,8 @@ define(['widget'],function (_widget) {
 			$carouselImgList = $(".carousel-img-list");
 			$carouselImgListLi = $carouselImgList.find("li");
 			$imgSize = $carouselImgListLi.size();
-			$firstImg = $carouselImgListLi.eq(0);
+			$firstImg = $carouselImgListLi.first();
+			$lastImg = $carouselImgListLi.last();
 			$carouselBtnR = $(".carousel-btn-r");
 			$carouselRtnL = $(".carousel-btn-l");
 		},
@@ -141,13 +142,21 @@ define(['widget'],function (_widget) {
 		 */
 		setVerticalAlign : function (height) {
 			var top = (this.config.imgHeight - height) / 2;
-			var verticalAlignType = "middle";
-			if (verticalAlignType === "top") {
+			// var verticalAlignType = "middle";
+			if (this.config.verticalAlign === "top") {
 				top = 0;
-			}else if (verticalAlignType === "bottom") {
-				top = (this.config.imgHeight - height);
+			}else if (this.config.verticalAlign === "bottom") {
+				top = (this.config.imgHeight - height);          
 			}
 			return top;
+		},
+		/**
+		 * @param [direction为旋转的方向]
+		 */
+		carouselRotate : function (direction) {
+			$carouselImgListLi.each(function () {
+				console.log();
+			});
 		}
 		/****************方法END******************/
 
