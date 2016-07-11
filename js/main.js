@@ -14,6 +14,7 @@ require(['jquery','carousel'],function ($,Carousel) {
 		imgWidth : 640,
 		imgHeight : 270,
 		speed : 400,
+		delay : 2000,
 		verticalAlign : "middle",
 		scale : 0.9
 	});

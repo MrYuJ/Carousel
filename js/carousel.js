@@ -11,6 +11,8 @@ define(['widget'],function (_widget) {
 			imgHeight : 270,
 			speed : 500,  
 			verticalAlign : "middle",
+			autoPlay : true,
+			delay : 2000,
 			scale : 0.9,
 			opacity : 0.7
 		};
@@ -40,6 +42,20 @@ define(['widget'],function (_widget) {
 		// 用于绑定事件
 		bindUI : function () {
 			var _this = this;
+			if (_this.config.autoPlay) {
+				// 一个可以传递给 Window.clearInterval() 从而取消对 code 的周期性执行的值。
+				var interval = setInterval(function() {
+					_this.carouselRotate("left");
+				},_this.config.delay);
+				$carouselBox.on("mouseenter",function () {
+					clearInterval(interval);
+				});
+				$carouselBox.on("mouseleave",function () {
+					interval = setInterval(function () {
+						_this.carouselRotate("left");
+					},_this.config.delay);
+				});
+			}
 			$carouselBtnR.on("click",function () {
 				if (rotateFlag) {
 					_this.carouselRotate("right");
