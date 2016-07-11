@@ -1,6 +1,8 @@
 define(['widget'],function (_widget) {
 	var $carouselBox,$carouselImgList,$carouselImgListLi,$imgSize,$firstImg,
 		$lastImg,$carouselBtnR,$carouselRtnL;
+	// 标志是否结束动画
+	var rotateFlag = true;
 	function Carousel() {
 		this.config = {
 			boxWidth : 1000,
@@ -39,10 +41,16 @@ define(['widget'],function (_widget) {
 		bindUI : function () {
 			var _this = this;
 			$carouselBtnR.on("click",function () {
-				_this.carouselRotate("right");
+				if (rotateFlag) {
+					_this.carouselRotate("right");
+					rotateFlag = false;
+				}
 			});
 			$carouselRtnL.on("click",function () {
-				_this.carouselRotate("left");
+				if (rotateFlag) {
+					_this.carouselRotate("left");
+					rotateFlag = false;
+				}
 			});
 		},
 		// 用于初始化组件属性
@@ -183,7 +191,9 @@ define(['widget'],function (_widget) {
 						"left"   : left,
 						"top"    : top,
 						"opacity": opacity
-					},_this.config.speed);
+					},_this.config.speed,function () {
+						rotateFlag = true;
+					});
 				});
 				// 为了z-index的设置不过度，这里一次把zIndexArray保存的值设置上去
 				$carouselImgListLi.each(function (i) {
@@ -205,7 +215,9 @@ define(['widget'],function (_widget) {
 						"left"   : left,
 						"top"    : top,
 						"opacity": opacity
-					},_this.config.speed);
+					},_this.config.speed,function () {
+						rotateFlag = true;
+					});
 				});
 				$carouselImgListLi.each(function (i) {
 					$(this).css("zIndex",zIndexArray[i]);
