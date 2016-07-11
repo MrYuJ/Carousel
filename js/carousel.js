@@ -26,17 +26,25 @@ define(['widget'],function (_widget) {
 		},
 		// 用于缓存DOM
 		cacheDOM : function () {
-			$carouselBox = $(".carousel-box");
-			$carouselImgList = $(".carousel-img-list");
+			$carouselBox       = $(".carousel-box");
+			$carouselImgList   = $(".carousel-img-list");
 			$carouselImgListLi = $carouselImgList.find("li");
-			$imgSize = $carouselImgListLi.size();
-			$firstImg = $carouselImgListLi.first();
-			$lastImg = $carouselImgListLi.last();
-			$carouselBtnR = $(".carousel-btn-r");
-			$carouselRtnL = $(".carousel-btn-l");
+			$imgSize 		   = $carouselImgListLi.size();
+			$firstImg          = $carouselImgListLi.first();
+			$lastImg           = $carouselImgListLi.last();
+			$carouselBtnR      = $(".carousel-btn-r");
+			$carouselRtnL      = $(".carousel-btn-l");
 		},
 		// 用于绑定事件
-		bindUI : function () {},
+		bindUI : function () {
+			var _this = this;
+			$carouselBtnR.on("click",function () {
+				_this.carouselRotate("right");
+			});
+			$carouselRtnL.on("click",function () {
+				_this.carouselRotate("left");
+			});
+		},
 		// 用于初始化组件属性
 		syncUI : function () {
 			var _this = this;
@@ -142,7 +150,6 @@ define(['widget'],function (_widget) {
 		 */
 		setVerticalAlign : function (height) {
 			var top = (this.config.imgHeight - height) / 2;
-			// var verticalAlignType = "middle";
 			if (this.config.verticalAlign === "top") {
 				top = 0;
 			}else if (this.config.verticalAlign === "bottom") {
@@ -154,9 +161,56 @@ define(['widget'],function (_widget) {
 		 * @param [direction为旋转的方向]
 		 */
 		carouselRotate : function (direction) {
-			$carouselImgListLi.each(function () {
-				console.log();
-			});
+			var _this = this;
+			var prev,next;
+			var width,height,left,top,opacity,zIndex;
+			var zIndexArray = [];
+			if (direction === "left") {
+				$carouselImgListLi.each(function () {
+					// prev() 获得匹配元素集合中每个元素紧邻的前一个同胞元素，通过选择器进行筛选是可选的。
+					// get() 方法获得由选择器指定的 DOM 元素。
+					prev   = $(this).prev().get(0) ? $(this).prev() : $lastImg; 
+					width  = prev.width();
+					height = prev.height();
+					left   = prev.css("left");  
+					top    = prev.css("top");   
+					opacity= prev.css("opacity");  
+					zIndex = prev.css("zIndex");  
+					zIndexArray.push(zIndex);
+					$(this).animate({
+						"width"  : width,
+						"height" : height,
+						"left"   : left,
+						"top"    : top,
+						"opacity": opacity
+					},_this.config.speed);
+				});
+				// 为了z-index的设置不过度，这里一次把zIndexArray保存的值设置上去
+				$carouselImgListLi.each(function (i) {
+					$(this).css("zIndex",zIndexArray[i]);
+				});
+			}else if (direction === "right") {
+				$carouselImgListLi.each(function () {
+					next   = $(this).next().get(0) ? $(this).next() : $firstImg; 
+					width  = next.width();
+					height = next.height();
+					left   = next.css("left");  
+					top    = next.css("top");   
+					opacity= next.css("opacity");  
+					zIndex = next.css("zIndex");  
+					zIndexArray.push(zIndex);
+					$(this).animate({
+						"width"  : width,
+						"height" : height,
+						"left"   : left,
+						"top"    : top,
+						"opacity": opacity
+					},_this.config.speed);
+				});
+				$carouselImgListLi.each(function (i) {
+					$(this).css("zIndex",zIndexArray[i]);
+				});
+			}
 		}
 		/****************方法END******************/
 

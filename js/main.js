@@ -13,7 +13,7 @@ require(['jquery','carousel'],function ($,Carousel) {
 		boxHeight : 270,
 		imgWidth : 640,
 		imgHeight : 270,
-		speed : 700,
+		speed : 400,
 		verticalAlign : "middle",
 		scale : 0.9
 	});
